@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#151515">
 <title>365 Prinsip Hidup</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="365 Prinsip">
+
 <style>
 :root{--bg:#f4f1e9;--card:#fffdf7;--ink:#20201e;--muted:#77736a;--accent:#b68a3b;--line:#ded8ca;--dark:#171715}
 *{box-sizing:border-box} body{margin:0;font-family:Georgia,"Times New Roman",serif;background:var(--bg);color:var(--ink)}
@@ -155,5 +162,11 @@ function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>setView(b.dataset.view));
 $('#search').addEventListener('input',render);
 updateProgress();render();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));
+}
 </script>
 </body></html>
