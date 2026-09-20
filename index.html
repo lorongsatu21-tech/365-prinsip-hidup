@@ -152,8 +152,24 @@ function updateDoneBtn(){
  b.className='btn '+(is?'done':'primary');
 }
 function openNextUnread(){
- const n=MASTER.find(x=>!done.has(x.day));
- if(n)openDay(n.day);else alert('Selamat! Semua 365 prinsip sudah ditandai selesai.');
+ const unread=MASTER.filter(x=>!done.has(x.day));
+ if(!unread.length){
+   alert('Selamat! Semua 365 prinsip sudah ditandai selesai.');
+   return;
+ }
+ if(!current){
+   openDay(unread[0].day);
+   return;
+ }
+ // Dari halaman yang sedang dibaca, cari halaman BELUM DIBACA berikutnya.
+ // Halaman saat ini tidak dipilih lagi, sehingga tombol tidak terasa macet.
+ let n=unread.find(x=>x.day>current.day);
+ if(!n) n=unread.find(x=>x.day<current.day);
+ if(n){
+   openDay(n.day);
+ }else{
+   alert('Ini satu-satunya prinsip yang belum ditandai selesai.');
+ }
 }
 function resetProgress(){
  if(confirm('Hapus seluruh tanda sudah dibaca dan mulai lagi dari awal?')){done.clear();save();render()}
